@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soumith's Reading Activity logs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .day-cell { aspect-ratio: 1 / 1; display: flex; items-center: center; justify-content: center; font-size: 0.75rem; font-weight: 500; border-radius: 2px; transition: all 0.2s; position: relative; cursor: default; }
+        .day-cell.empty { background: transparent; pointer-events: none; }
+        .day-cell.filled { background-color: #f8fafc; }
+        .day-cell.filled:hover { background-color: #0f172a; color: white; }
+        .day-cell.today { ring: 2px solid #0f172a; ring-offset: 2px; z-index: 10; }
+        .day-cell.active { background-color: #10b981; color: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .dot { position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background-color: #cbd5e1; }
+        
+        #tooltip { position: fixed; bottom: 48px; left: 50%; transform: translateX(-50%); background-color: #0f172a; color: white; padding: 12px 24px; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); display: none; z-index: 100; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(4px); }
+    </style>
+</head>
+<body class="bg-white text-slate-900 selection:bg-slate-200">
+
+    <div class="min-h-screen p-4 md:p-8 lg:p-12">
+        <!-- Header Section -->
+        <header class="max-w-7xl mx-auto mb-12 border-b border-slate-100 pb-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 text-slate-400 mb-2 uppercase tracking-[0.2em] text-xs font-bold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <span>Soumith's Reading Activity logs</span>
+                    </div>
+                    <h1 id="display-year" class="text-6xl md:text-8xl font-black tracking-tighter text-slate-900">2026</h1>
+                </div>
+            </div>
+
+            <!-- Reading Statistics Dashboard -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-7xl">
+                <!-- Total Books Read -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col justify-between min-h-[140px]">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Books Read</p>
+                        <p class="text-4xl font-black text-slate-900">0</p>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-[9px] font-bold uppercase tracking-tighter mb-1.5">
+                            <span class="text-slate-400">Yearly Goal</span>
+                            <span class="text-slate-900">0 / 50</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-slate-900 h-full w-0 transition-all duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avg Minutes -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col justify-start min-h-[140px]">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Avg. Minutes / Day</p>
+                    <p class="text-4xl font-black text-slate-900">28m</p>
+                </div>
+
+                <!-- Current Streak -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col justify-between min-h-[140px] relative">
+                    <div class="absolute top-6 right-6 text-emerald-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Current Streak</p>
+                        <p class="text-4xl font-black text-slate-900">4 Days</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Grid Section -->
+        <main id="calendar-container" class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
+            <!-- Months will be injected here -->
+        </main>
+
+        <!-- Pop-up Tooltip -->
+        <div id="tooltip">
+            <div class="flex flex-col">
+                <span id="tooltip-date" class="text-[10px] text-slate-400 font-bold uppercase tracking-widest"></span>
+                <div class="flex items-center gap-2 mt-1">
+                    <div id="tooltip-content" class="flex items-center gap-2">
+                        <!-- Icon and Text injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fixed to 2026
+        const currentYear = 2026;
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
+        
+        // Mock data
+        const timeData = {
+            "January-1": "25 minutes",
+            "January-2": "27 minutes",
+            "January-3": "31 minutes",
+            "January-4": "27 minutes"
+        };
+
+        function isToday(day, monthIdx, year) {
+            const today = new Date();
+            return day === today.getDate() && monthIdx === today.getMonth() && year === today.getFullYear();
+        }
+
+        function isGreenDate(day, monthIdx) {
+            return monthIdx === 0 && [1, 2, 3, 4].includes(day);
+        }
+
+        function renderCalendar() {
+            const container = document.getElementById('calendar-container');
+            const yearDisplay = document.getElementById('display-year');
+            
+            yearDisplay.textContent = currentYear;
+            container.innerHTML = '';
+
+            months.forEach((monthName, monthIdx) => {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'flex flex-col';
+
+                monthDiv.innerHTML = `
+                    <div class="flex items-baseline justify-between mb-4 border-l-4 border-slate-900 pl-3">
+                        <h2 class="text-xl font-bold tracking-tight uppercase">${monthName}</h2>
+                        <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase">${currentYear}</span>
+                    </div>
+                    <div class="grid grid-cols-7 mb-2">
+                        ${daysOfWeek.map(d => `<div class="text-center text-[10px] font-bold text-slate-400 py-1 uppercase tracking-tighter">${d}</div>`).join('')}
+                    </div>
+                `;
+
+                const grid = document.createElement('div');
+                grid.className = 'calendar-grid';
+
+                const daysCount = new Date(currentYear, monthIdx + 1, 0).getDate();
+                const firstDay = new Date(currentYear, monthIdx, 1).getDay();
+
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'day-cell empty';
+                    grid.appendChild(emptyCell);
+                }
+
+                for (let day = 1; day <= daysCount; day++) {
+                    const cell = document.createElement('div');
+                    const isGreen = isGreenDate(day, monthIdx);
+                    const isCurrDay = isToday(day, monthIdx, currentYear);
+                    
+                    cell.className = `day-cell filled flex items-center justify-center cursor-default`;
+                    if (isGreen) cell.classList.add('active');
+                    if (isCurrDay) {
+                        cell.classList.add('today');
+                        cell.style.boxShadow = '0 0 0 2px white, 0 0 0 4px #0f172a';
+                    }
+
+                    cell.textContent = day;
+
+                    if (day !== null && (day % 7 === 0) && !isGreen) {
+                        const dot = document.createElement('div');
+                        dot.className = 'dot';
+                        cell.appendChild(dot);
+                    }
+
+                    cell.onmouseenter = (e) => showTooltip(e, day, monthName);
+                    cell.onmouseleave = hideTooltip;
+
+                    grid.appendChild(cell);
+                }
+
+                monthDiv.appendChild(grid);
+                container.appendChild(monthDiv);
+            });
+        }
+
+        const tooltip = document.getElementById('tooltip');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipContent = document.getElementById('tooltip-content');
+
+        function showTooltip(e, day, monthName) {
+            const key = `${monthName}-${day}`;
+            const time = timeData[key];
+            
+            tooltipDate.textContent = `${monthName} ${day}, ${currentYear}`;
+            
+            if (time) {
+                tooltipContent.innerHTML = `
+                    <svg class="text-emerald-400" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span class="text-sm font-bold tracking-tight">${time}</span>
+                `;
+            } else {
+                tooltipContent.innerHTML = `<span class="text-sm font-medium opacity-50 italic">No logs found</span>`;
+            }
+
+            tooltip.style.display = 'block';
+        }
+
+        function hideTooltip() {
+            tooltip.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCalendar);
+    </script>
+</body>
+</html>
