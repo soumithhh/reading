@@ -9,7 +9,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-        .day-cell { aspect-ratio: 1 / 1; display: flex; items-center: center; justify-content: center; font-size: 0.75rem; font-weight: 500; border-radius: 2px; transition: all 0.2s; position: relative; cursor: default; }
+        .day-cell { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 500; border-radius: 2px; transition: all 0.2s; position: relative; cursor: default; }
         .day-cell.empty { background: transparent; pointer-events: none; }
         .day-cell.filled { background-color: #f8fafc; }
         .day-cell.filled:hover { background-color: #0f172a; color: white; }
@@ -18,6 +18,10 @@
         .dot { position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background-color: #cbd5e1; }
         
         #tooltip { position: fixed; bottom: 48px; left: 50%; transform: translateX(-50%); background-color: #0f172a; color: white; padding: 12px 24px; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); display: none; z-index: 100; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(4px); }
+
+        /* Custom Scrollbar for the books section */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-white text-slate-900 selection:bg-slate-200">
@@ -41,15 +45,15 @@
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col justify-between min-h-[140px]">
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Books Read</p>
-                        <p class="text-4xl font-black text-slate-900">0</p>
+                        <p class="text-4xl font-black text-slate-900">1</p>
                     </div>
                     <div class="mt-4">
                         <div class="flex justify-between text-[9px] font-bold uppercase tracking-tighter mb-1.5">
                             <span class="text-slate-400">Yearly Goal</span>
-                            <span class="text-slate-900">0 / 50</span>
+                            <span class="text-slate-900">1 / 50</span>
                         </div>
                         <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                            <div class="bg-slate-900 h-full w-0 transition-all duration-500"></div>
+                            <div class="bg-slate-900 h-full w-[2%] transition-all duration-500"></div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +61,7 @@
                 <!-- Avg Minutes -->
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col justify-start min-h-[140px]">
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Avg. Minutes / Day</p>
-                    <p class="text-4xl font-black text-slate-900">28m</p>
+                    <p class="text-4xl font-black text-slate-900">65m</p>
                 </div>
 
                 <!-- Current Streak -->
@@ -67,16 +71,47 @@
                     </div>
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Current Streak</p>
-                        <p class="text-4xl font-black text-slate-900">4 Days</p>
+                        <p class="text-4xl font-black text-slate-900">13 Days</p>
                     </div>
                 </div>
             </div>
         </header>
 
         <!-- Grid Section -->
-        <main id="calendar-container" class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
+        <main id="calendar-container" class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12 mb-20">
             <!-- Months will be injected here -->
         </main>
+
+        <!-- Currently Reading Section -->
+        <section class="max-w-7xl mx-auto mb-12">
+            <div class="flex items-center gap-2 text-slate-400 mb-6 uppercase tracking-[0.2em] text-xs font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v3c0 1.1-.9 2-2 2"/><path d="M5 12v8c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-8"/><line x1="9" x2="15" y1="16" y2="16"/></svg>
+                <span>Currently Reading</span>
+            </div>
+            
+            <div class="flex gap-6 overflow-x-auto pb-6 hide-scrollbar snap-x">
+                <div class="flex-none w-48 snap-start">
+                    <img src="https://soumithhh.github.io/reading/b2.jpg" alt="Book Cover 2" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Cover+2'">
+                </div>
+                <div class="flex-none w-48 snap-start">
+                    <img src="https://soumithhh.github.io/reading/b3.jpg" alt="Book Cover 3" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Cover+3'">
+                </div>
+            </div>
+        </section>
+
+        <!-- Books Read Section -->
+        <section class="max-w-7xl mx-auto mb-20">
+            <div class="flex items-center gap-2 text-slate-400 mb-6 uppercase tracking-[0.2em] text-xs font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Books Read</span>
+            </div>
+            
+            <div class="flex gap-6 overflow-x-auto pb-6 hide-scrollbar snap-x">
+                <div class="flex-none w-48 snap-start">
+                    <img src="https://soumithhh.github.io/reading/b1.png" alt="Book Cover 1" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Cover+1'">
+                </div>
+            </div>
+        </section>
 
         <!-- Pop-up Tooltip -->
         <div id="tooltip">
@@ -97,12 +132,21 @@
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
         
-        // Mock data
+        // Log Data
         const timeData = {
             "January-1": "25 minutes",
             "January-2": "27 minutes",
             "January-3": "31 minutes",
-            "January-4": "27 minutes"
+            "January-4": "27 minutes",
+            "January-5": "121 minutes",
+            "January-6": "86 minutes",
+            "January-7": "131 minutes",
+            "January-8": "110 minutes",
+            "January-9": "73 minutes",
+            "January-10": "67 minutes",
+            "January-11": "31 minutes",
+            "January-12": "46 minutes",
+            "January-13": "57 minutes"
         };
 
         function isToday(day, monthIdx, year) {
@@ -111,7 +155,8 @@
         }
 
         function isGreenDate(day, monthIdx) {
-            return monthIdx === 0 && [1, 2, 3, 4].includes(day);
+            const monthName = months[monthIdx];
+            return timeData[`${monthName}-${day}`] !== undefined;
         }
 
         function renderCalendar() {
@@ -161,7 +206,8 @@
 
                     cell.textContent = day;
 
-                    if (day !== null && (day % 7 === 0) && !isGreen) {
+                    const dateObj = new Date(currentYear, monthIdx, day);
+                    if (dateObj.getDay() === 0 && !isGreen) {
                         const dot = document.createElement('div');
                         dot.className = 'dot';
                         cell.appendChild(dot);
