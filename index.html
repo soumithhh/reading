@@ -45,15 +45,15 @@
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col justify-between min-h-[140px]">
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Books Read</p>
-                        <p class="text-4xl font-black text-slate-900">1</p>
+                        <p class="text-4xl font-black text-slate-900">2</p>
                     </div>
                     <div class="mt-4">
                         <div class="flex justify-between text-[9px] font-bold uppercase tracking-tighter mb-1.5">
                             <span class="text-slate-400">Yearly Goal</span>
-                            <span class="text-slate-900">1 / 50</span>
+                            <span class="text-slate-900">2 / 50</span>
                         </div>
                         <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                            <div class="bg-slate-900 h-full w-[2%] transition-all duration-500"></div>
+                            <div class="bg-slate-900 h-full w-[4%] transition-all duration-500"></div>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 <!-- Avg Minutes -->
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col justify-start min-h-[140px]">
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Avg. Minutes / Day</p>
-                    <p class="text-4xl font-black text-slate-900">65m</p>
+                    <p class="text-4xl font-black text-slate-900">71m</p>
                 </div>
 
                 <!-- Current Streak -->
@@ -71,7 +71,7 @@
                     </div>
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Current Streak</p>
-                        <p class="text-4xl font-black text-slate-900">13 Days</p>
+                        <p class="text-4xl font-black text-slate-900">17 Days</p>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,8 @@
             
             <div class="flex gap-6 overflow-x-auto pb-6 hide-scrollbar snap-x">
                 <div class="flex-none w-48 snap-start">
-                    <img src="https://soumithhh.github.io/reading/b2.jpg" alt="Book Cover 2" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Cover+2'">
+                    <!-- Project Hail Mary -->
+                    <img src="https://m.media-amazon.com/images/I/81zD9kaVW9L._AC_UF1000,1000_QL80_.jpg" alt="Project Hail Mary" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Project+Hail+Mary'">
                 </div>
                 <div class="flex-none w-48 snap-start">
                     <img src="https://soumithhh.github.io/reading/b3.jpg" alt="Book Cover 3" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Cover+3'">
@@ -109,6 +110,10 @@
             <div class="flex gap-6 overflow-x-auto pb-6 hide-scrollbar snap-x">
                 <div class="flex-none w-48 snap-start">
                     <img src="https://soumithhh.github.io/reading/b1.png" alt="Book Cover 1" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Cover+1'">
+                </div>
+                <div class="flex-none w-48 snap-start">
+                    <!-- The Inner Game of Tennis moved here -->
+                    <img src="https://soumithhh.github.io/reading/b2.jpg" alt="The Inner Game of Tennis" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Inner+Game+of+Tennis'">
                 </div>
             </div>
         </section>
@@ -132,7 +137,7 @@
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
         
-        // Log Data
+        // Log Data updated with latest dates provided
         const timeData = {
             "January-1": "25 minutes",
             "January-2": "27 minutes",
@@ -146,7 +151,11 @@
             "January-10": "67 minutes",
             "January-11": "31 minutes",
             "January-12": "46 minutes",
-            "January-13": "57 minutes"
+            "January-13": "57 minutes",
+            "January-14": "37 minutes",
+            "January-15": "72 minutes",
+            "January-16": "137 minutes",
+            "January-17": "133 minutes"
         };
 
         function isToday(day, monthIdx, year) {
