@@ -29,14 +29,26 @@
     <div class="min-h-screen p-4 md:p-8 lg:p-12">
         <!-- Header Section -->
         <header class="max-w-7xl mx-auto mb-12 border-b border-slate-100 pb-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-                <div>
-                    <div class="flex items-center gap-2 text-slate-400 mb-2 uppercase tracking-[0.2em] text-xs font-bold">
+            <div class="flex flex-col gap-6 mb-8">
+                <!-- Title and Socials on the same line -->
+                <div class="flex items-center justify-between w-full">
+                    <div class="flex items-center gap-2 text-slate-400 uppercase tracking-[0.2em] text-xs font-bold">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                         <span>Soumith's Reading Activity logs</span>
                     </div>
-                    <h1 id="display-year" class="text-6xl md:text-8xl font-black tracking-tighter text-slate-900">2026</h1>
+
+                    <!-- Social Links -->
+                    <div class="flex items-center gap-5">
+                        <a href="https://www.instagram.com/soumithhh" target="_blank" class="opacity-40 hover:opacity-100 transition-opacity" title="Instagram">
+                            <img src="https://cdn.brandfetch.io/ido5G85nya/theme/light/id8qc6z_TX.svg?c=1bxid64Mup7aczewSAYMX&t=1724650623897" alt="Instagram" class="w-5 h-5 object-contain">
+                        </a>
+                        <a href="https://www.goodreads.com/user/show/83851001-soumith" target="_blank" class="opacity-40 hover:opacity-100 transition-opacity" title="Goodreads">
+                            <img src="https://cdn.brandfetch.io/id7HnX7848/w/400/h/400/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1752635901637" alt="Goodreads" class="w-5 h-5 object-contain rounded-sm">
+                        </a>
+                    </div>
                 </div>
+
+                <h1 id="display-year" class="text-6xl md:text-8xl font-black tracking-tighter text-slate-900 leading-none">2026</h1>
             </div>
 
             <!-- Reading Statistics Dashboard -->
@@ -61,7 +73,7 @@
                 <!-- Avg Minutes -->
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col justify-start min-h-[140px]">
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Avg. Minutes / Day</p>
-                    <p class="text-4xl font-black text-slate-900">71m</p>
+                    <p class="text-4xl font-black text-slate-900">85m</p>
                 </div>
 
                 <!-- Current Streak -->
@@ -71,7 +83,7 @@
                     </div>
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Current Streak</p>
-                        <p class="text-4xl font-black text-slate-900">17 Days</p>
+                        <p class="text-4xl font-black text-slate-900">24 Days</p>
                     </div>
                 </div>
             </div>
@@ -91,7 +103,6 @@
             
             <div class="flex gap-6 overflow-x-auto pb-6 hide-scrollbar snap-x">
                 <div class="flex-none w-48 snap-start">
-                    <!-- Project Hail Mary -->
                     <img src="https://m.media-amazon.com/images/I/81zD9kaVW9L._AC_UF1000,1000_QL80_.jpg" alt="Project Hail Mary" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Project+Hail+Mary'">
                 </div>
                 <div class="flex-none w-48 snap-start">
@@ -112,7 +123,6 @@
                     <img src="https://soumithhh.github.io/reading/b1.png" alt="Book Cover 1" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Cover+1'">
                 </div>
                 <div class="flex-none w-48 snap-start">
-                    <!-- The Inner Game of Tennis moved here -->
                     <img src="https://soumithhh.github.io/reading/b2.jpg" alt="The Inner Game of Tennis" class="w-full h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 bg-slate-100" onerror="this.src='https://via.placeholder.com/192x288?text=Inner+Game+of+Tennis'">
                 </div>
             </div>
@@ -124,7 +134,6 @@
                 <span id="tooltip-date" class="text-[10px] text-slate-400 font-bold uppercase tracking-widest"></span>
                 <div class="flex items-center gap-2 mt-1">
                     <div id="tooltip-content" class="flex items-center gap-2">
-                        <!-- Icon and Text injected here -->
                     </div>
                 </div>
             </div>
@@ -132,12 +141,10 @@
     </div>
 
     <script>
-        // Fixed to 2026
         const currentYear = 2026;
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
         
-        // Log Data updated with latest dates provided
         const timeData = {
             "January-1": "25 minutes",
             "January-2": "27 minutes",
@@ -155,7 +162,14 @@
             "January-14": "37 minutes",
             "January-15": "72 minutes",
             "January-16": "137 minutes",
-            "January-17": "133 minutes"
+            "January-17": "133 minutes",
+            "January-18": "120 minutes",
+            "January-19": "176 minutes",
+            "January-20": "77 minutes",
+            "January-21": "108 minutes",
+            "January-22": "59 minutes",
+            "January-23": "77 minutes",
+            "January-24": "126 minutes"
         };
 
         function isToday(day, monthIdx, year) {
